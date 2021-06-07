@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SignIn.scss";
 
-import { signInWithGoogle } from "../../firebase";
+import { auth, signInWithGoogle } from "../../firebase";
 
 import Button from "../Button/Button";
 import FormInput from "../FormInput/FormInput";
@@ -13,8 +13,17 @@ const SignIn = () => {
     };
     const [credentials, setCredentials] = useState(initialState);
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
+        const { email, password } = credentials;
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            setCredentials(initialState);
+        } catch (err) {
+            console.log(err.messsage);
+            alert(err.message);
+        }
     };
     const changeHandler = (e) => {
         const { name, value } = e.target;
