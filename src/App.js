@@ -7,7 +7,7 @@ import Header from "./components/Header/Header";
 
 import { Route, BrowserRouter } from "react-router-dom";
 import SignInAndSignUp from "./pages/SignIn-SignUp/SignIn-SignUp";
-import { auth } from "./firebase";
+import { auth, createUserProfileDocument } from "./firebase";
 
 const Hats = () => {
     return <div>Hats</div>;
@@ -17,7 +17,16 @@ function App() {
     const [user, setUser] = useState();
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => setUser(user));
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
+            const userRef = await createUserProfileDocument(user);
+
+            userRef.onSnapshot((snapshot) => {
+                setUser({
+                    id: snapshot.id,
+                    ...snapshot.data(),
+                });
+            });
+        });
 
         return () => {
             unsubscribe();
