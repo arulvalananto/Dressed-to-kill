@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { auth } from "../../firebase";
 import { useSelector } from "react-redux";
-import CardIcon from "../CardIcon/CardIcon";
-import CardDropdown from "../CardDropDown/CardDropdown";
+import CardIcon from "../CartIcon/CartIcon";
+import CartDropdown from "../CartDropdown/CartDropdown";
 
 const Header = () => {
     const currentUser = useSelector((state) => state.cart.currentUser);
@@ -36,7 +36,7 @@ const Header = () => {
                 )}
                 <CardIcon />
             </div>
-            {hidden && <CardDropdown />}
+            {!hidden && <CartDropdown />}
         </div>
     );
 };

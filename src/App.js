@@ -18,7 +18,7 @@ const Hats = () => {
 function App() {
     const dispatch = useDispatch();
 
-    const state = useSelector((state) => state);
+    const state = useSelector((state) => state.cart);
     console.log(state);
 
     useEffect(() => {
