@@ -18,8 +18,8 @@ const Hats = () => {
 function App() {
     const dispatch = useDispatch();
 
-    const currentUser = useSelector((state) => state.user.currentUser);
-    console.log(currentUser);
+    const state = useSelector((state) => state);
+    console.log(state);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {

@@ -6,9 +6,12 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { auth } from "../../firebase";
 import { useSelector } from "react-redux";
+import CardIcon from "../CardIcon/CardIcon";
+import CardDropdown from "../CardDropDown/CardDropdown";
 
 const Header = () => {
-    const currentUser = useSelector((state) => state.user.currentUser);
+    const currentUser = useSelector((state) => state.cart.currentUser);
+    const hidden = useSelector((state) => state.cart.hidden);
 
     return (
         <div className="header">
@@ -31,7 +34,9 @@ const Header = () => {
                         Sign In
                     </Link>
                 )}
+                <CardIcon />
             </div>
+            {hidden && <CardDropdown />}
         </div>
     );
 };
