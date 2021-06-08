@@ -8,23 +8,31 @@ import Header from "./components/Header/Header";
 import { Route, BrowserRouter } from "react-router-dom";
 import SignInAndSignUp from "./pages/SignIn-SignUp/SignIn-SignUp";
 import { auth, createUserProfileDocument } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { FETCHUSER } from "./redux/reducers/userReducers";
 
 const Hats = () => {
     return <div>Hats</div>;
 };
 
 function App() {
-    const [user, setUser] = useState();
+    const dispatch = useDispatch();
+
+    const currentUser = useSelector((state) => state.user.currentUser);
+    console.log(currentUser);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             const userRef = await createUserProfileDocument(user);
 
             userRef?.onSnapshot((snapshot) => {
-                setUser({
-                    id: snapshot.id,
-                    ...snapshot.data(),
-                });
+                dispatch(
+                    FETCHUSER({
+                        id: snapshot.id,
+                        email: snapshot.data().email,
+                        displayName: snapshot.data().displayName,
+                    })
+                );
             });
         });
 
@@ -33,11 +41,10 @@ function App() {
         };
     }, []);
 
-    console.log(user);
     return (
         <div>
             <BrowserRouter>
-                <Header currentUser={user} />
+                <Header />
                 <Route exact path="/" component={Home} />
                 <Route path="/shop" component={Shop} />
                 <Route path="/hats" component={Hats} />

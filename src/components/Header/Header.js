@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
 import { auth } from "../../firebase";
+import { useSelector } from "react-redux";
 
-const Header = ({ currentUser }) => {
+const Header = () => {
+    const currentUser = useSelector((state) => state.user.currentUser);
+
     return (
         <div className="header">
             <Link to="/" className="logo-container">
@@ -24,7 +27,9 @@ const Header = ({ currentUser }) => {
                         Sign Out
                     </div>
                 ) : (
-                    <Link to="/signin" className="option">Sign In</Link>
+                    <Link to="/signin" className="option">
+                        Sign In
+                    </Link>
                 )}
             </div>
         </div>
