@@ -10,6 +10,7 @@ import SignInAndSignUp from "./pages/SignIn-SignUp/SignIn-SignUp";
 import { auth, createUserProfileDocument } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { FETCHUSER } from "./redux/reducers/userReducers";
+import Checkout from "./pages/Checkout/Checkout";
 
 const Hats = () => {
     return <div>Hats</div>;
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/shop" component={Shop} />
                 <Route path="/hats" component={Hats} />
                 <Route path="/signin" component={SignInAndSignUp} />
+                <Route path="/checkout" component={Checkout} />
             </BrowserRouter>
         </div>
     );
