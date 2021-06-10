@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 
 import Home from "./pages/Home/Home";
@@ -40,7 +40,7 @@ function App() {
         return () => {
             unsubscribe();
         };
-    }, []);
+    }, [dispatch]);
 
     return (
         <div>

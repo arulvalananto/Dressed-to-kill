@@ -7,11 +7,11 @@ import "./Collection.scss";
 
 const Collection = () => {
     const { collectionId } = useParams();
+    
     const collections = useSelector((state) => state.shop.collections);
     const collection = collections.filter(
         (collection) => collection.routeName === collectionId
     );
-    console.log(collection);
 
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const Collection = () => {
     return (
         <div className="collection">
             {collection.map(({ title, items }) => (
-                <div className="collection-details">
+                <div key={title} className="collection-details">
                     <h2>{title}</h2>
                     <div className="collection-items">
                         {items?.map((item) => (
