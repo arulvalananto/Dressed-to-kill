@@ -36,10 +36,57 @@ const cartSlice = createSlice({
                 ],
             };
         },
+        CLEAR_ITEM: (cart, action) => {
+            const updatedCartItems = cart.cartItems.filter((item) => {
+                return item.id !== action.payload.id;
+            });
+            return {
+                ...cart,
+                cartItems: updatedCartItems,
+            };
+        },
+        DECREASE_QUANTITY: (cart, action) => {
+            const existingCartItem = cart.cartItems.find(
+                (item) => item.id === action.payload.id
+            );
+            if (existingCartItem.quantity === 1) {
+                return {
+                    ...cart,
+                    cartItems: cart.cartItems.filter((item) => {
+                        return item.id !== action.payload.id;
+                    }),
+                };
+            }
+
+            return {
+                ...cart,
+                cartItems: cart.cartItems.map((item) =>
+                    item.id === action.payload.id
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item
+                ),
+            };
+        },
+        INCREASE_QUANTITY: (cart, action) => {
+            return {
+                ...cart,
+                cartItems: cart.cartItems.map((item) =>
+                    item.id === action.payload.id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                ),
+            };
+        },
     },
 });
 
-export const { TOGGLE_CART, ADD_ITEM } = cartSlice.actions;
+export const {
+    TOGGLE_CART,
+    ADD_ITEM,
+    CLEAR_ITEM,
+    DECREASE_QUANTITY,
+    INCREASE_QUANTITY,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
 
