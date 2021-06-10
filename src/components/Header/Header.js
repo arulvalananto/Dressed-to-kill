@@ -10,7 +10,7 @@ import CardIcon from "../CartIcon/CartIcon";
 import CartDropdown from "../CartDropdown/CartDropdown";
 
 const Header = () => {
-    const currentUser = useSelector((state) => state.cart.currentUser);
+    const currentUser = useSelector((state) => state.user.currentUser);
     const hidden = useSelector((state) => state.cart.hidden);
 
     return (
