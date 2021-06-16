@@ -1,15 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { SHOP_DATA } from "../../data/shop";
+// import { SHOP_DATA } from "../../data/shop";
 
 const shopSlice = createSlice({
-    name: "shop",
-    initialState: {
-        collections: SHOP_DATA,
+  name: "shop",
+  initialState: {
+    collections: [],
+  },
+  reducers: {
+    FETCH_COLLECTIONS: (shop, action) => {
+      return { ...shop, collections: action.payload };
     },
-    reducers: {},
+  },
 });
 
-// export const {} = shopSlice.actions;
+export const { FETCH_COLLECTIONS } = shopSlice.actions;
 
 export default shopSlice.reducer;
