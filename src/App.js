@@ -9,16 +9,14 @@ import Header from "./components/Header/Header.component";
 
 import {
   auth,
-  convertCollectionsSnapshotToMap,
   createUserProfileDocument,
-  firestore,
 } from "./firebase";
 
 import { Route, BrowserRouter } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { FETCHUSER } from "./redux/reducers/userReducers";
-import { FETCH_COLLECTIONS } from "./redux/reducers/shopReducers";
+import { getCollections } from "./redux/reducers/shopReducers";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,20 +45,15 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const collectionRef = firestore.collection("collections");
-    collectionRef.onSnapshot((snapshot) => {
-      const data = convertCollectionsSnapshotToMap(snapshot);
-      dispatch(FETCH_COLLECTIONS(data));
-    });
+    getCollections()(dispatch);
 
     // Promise Pattern
-    
+
     // fetch(
     //   "https://firestore.googleapis.com/v1/projects/dresssed-to-kill/databases/(default)/documents/collections"
     // )
     //   .then((response) => response.json())
     //   .then((data) => console.log(data.documents));
-
   }, [dispatch]);
 
   return (

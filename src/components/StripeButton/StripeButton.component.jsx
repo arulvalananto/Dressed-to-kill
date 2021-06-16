@@ -4,12 +4,20 @@ import StripeCheckout from "react-stripe-checkout";
 
 import Logo from "../../assets/logo.png";
 
+import axios from "axios"
+
 const StripeButton = ({ price }) => {
     const priceForStripe = price * 100;
 
     const onToken = (token) => {
         console.log(token);
-        alert("Payment Successfully");
+
+        const payment = async () => {
+            const response = await axios.post("http://localhost:5000/api/v1/payment",
+                { amount: priceForStripe, token });
+            console.log(response);
+        }
+        payment();
     };
 
     return (
